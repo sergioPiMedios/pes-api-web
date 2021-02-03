@@ -1,0 +1,11 @@
+{
+  "exec": "ts-node-dev -r tsconfig-paths/register --inspect=32250 ./src/index.ts",
+  "watch": [
+    "src/*",
+    "public/*"
+  ],
+  "ext": "js, html, css, json",
+  "env": {
+    "DEBUG": "src:*"
+  }
+}

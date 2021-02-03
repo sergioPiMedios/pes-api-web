@@ -1,0 +1,67 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "strict": true,
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "experimentalDecorators": true,
+        "moduleResolution": "Node",
+        "outDir": "./dist/src",
+        "baseUrl": "./src",
+        "paths": {
+            "@fnd/*": [
+                "frameworks_and_drivers/*"
+            ],
+            "@common/*": [
+                "domain/modules/common/*"
+            ],
+            "@users/*": [
+                "domain/modules/users_svc/*"
+            ],
+            "@vehicles/*": [
+                "domain/modules/vehicles_svc/*"
+            ],
+            "@instituciones/*": [
+                "domain/modules/instituciones_svc/*"
+            ],
+            "@config/*": [
+                "domain/modules/config_svc/*"
+            ],
+            "@fares/*": [
+                "domain/modules/fares_svc/*"
+            ],
+            "@commissions/*": [
+                "domain/modules/commissions_svc/*"
+            ],
+            "@issues/*": [
+                "domain/modules/issues_svc/*"
+            ],
+            "@receipts/*": [
+                "domain/modules/receipts_svc/*"
+            ],
+            "@locations/*": [
+                "domain/modules/locations_svc/*"
+            ],
+            "@tickets/*": [
+                "domain/modules/tickets_svc/*"
+            ],
+            "@drivers/*": [
+                "domain/modules/drivers_svc/*"
+            ],
+            "@owners/*": [
+                "domain/modules/owners_svc/*"
+            ],
+        }
+    },
+    "include": [
+        "typings.d.ts",
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "test"
+    ]
+}

@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  pes-api-web-svc:
+    container_name: pes-api-web-svc
+    image: pes-api-web-svc:1.0.5
+    build: .
+    environment:
+      SVC_NAME: "pes-api-web-svc"
+      NODE_ENV: "development"
+      PSQL_CLIENT: "psql_client"
+      PSQL_HOST: "postgrespes"
+      PSQL_PORT: "5432"
+      PSQL_USERNAME: "postgresadmin"
+      PSQL_PASSWORD: "admin123"
+      PSQL_DATABASE: "pes_svc"
+      PSQL_POOL_MAX: "5"
+      PSQL_POOL_MIN: "1"
+      PSQL_POOL_IDLE: "10000"
+      HTTP_PORT: "3000"
+      AUTH_KEYS_TABLE: "auth_keys"
+      KEY_ALGORITHM: "RS256"
+      ISSUER: "issuer"
+      TOKEN_TIME: "4800h"
+      OPENAPI_FILE_PATH: "./oas3.yaml"
+      OPENAPI_ENABLE_REQUEST_VALIDATION: "true"
+      OPENAPI_ENABLE_RESPONSE_VALIDATION: "true"
+    ports:
+      - 3000:3000
+    networks:
+      - dev_dbs
+
+networks:
+  dev_dbs:
+    external: true

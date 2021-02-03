@@ -1,0 +1,210 @@
+openapi: 3.0.0
+info:
+  title: gg-api-web-svc
+  description: Api Web
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/v1
+tags:
+  #USERS-TAG
+  - name: users
+    description: users service
+  - name: users-roles
+    description: users roles service
+  - name: scopes
+    description: scopes service
+  - name: roles
+    description: roles service
+  - name: roles-scopes
+    description: roles scopes service
+  - name: token-manager
+    description: token manager service
+  - name: password-reset
+    description: password reset service
+  - name: status
+    description: status service
+  - name: status-users
+    description: users status service
+
+paths:
+  /users/get-all:
+    get:
+      tags:
+        - users
+      summary: Get all users
+      description: http://localhost:3000/v1/users/get-all
+      operationId: users:get-all
+      parameters:
+        - in: query
+          name: first_name
+          required: false
+          schema:
+            type: string
+            example: John
+        - in: query
+          name: last_name
+          required: false
+          schema:
+            type: string
+            example: Doe
+        - in: query
+          name: email
+          required: false
+          schema:
+            type: string
+            format: email
+            example: johndoe@email.com
+          allowReserved: true
+        - in: query
+          name: cities_id
+          required: false
+          schema:
+            type: integer
+            example: 2
+        - in: query
+          name: city
+          required: false
+          schema:
+            type: string
+            example: Bogotá
+        - in: query
+          name: job_position
+          required: false
+          schema:
+            type: string
+            example: d4957ef5-5ee1-4baa-8cea-a9305c794da5
+        - in: query
+          name: work_contract
+          required: false
+          schema:
+            type: string
+            example: d4957ef5-5ee1-4baa-8cea-a9305c794da5
+        - in: query
+          name: location
+          required: false
+          schema:
+            type: string
+            example: d4957ef5-5ee1-4baa-8cea-a9305c794da5
+        - in: query
+          name: company
+          required: false
+          schema:
+            type: string
+            example: d4957ef5-5ee1-4baa-8cea-a9305c794da5
+        - in: query
+          name: status
+          required: false
+          schema:
+            type: string
+            example: d4957ef5-5ee1-4baa-8cea-a9305c794da5
+        - in: query
+          name: limit
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 100
+          description: The numbers of items to return
+        - in: query
+          name: offset
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+          description: The number of items to skip before starting to collect the result set
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: result.items = [ users-schema ]
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/list_response"
+        "401":
+          description: Access token doesn't have the required scope
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/error"
+        "403":
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/error"
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+   #ENTITY SCHEMAS
+    #RESPONSES
+    api_response:
+      title: ApiResponse
+      required:
+        - result
+        - status
+      type: object
+      properties:
+        result:
+          type: object
+          description: Object according to the requested resource
+        status:
+          type: integer
+          description: HTTP code status
+    api_error:
+      title: ApiError
+      required:
+        - message
+        - code
+      type: object
+      properties:
+        message:
+          type: string
+          description: Message that describes the error
+        code:
+          type: integer
+          description: Code of error
+        metadata:
+          type: object
+          description: More info of error
+    list_reponse:
+      title: ListResponse
+      required:
+        - items
+        - total
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+          description: response elements according to the resource
+        total:
+          type: integer
+          description: total of items saved
+    api_list_reponse:
+      title: ApiListResponse
+      required:
+        - result
+        - status
+      type: object
+      properties:
+        result:
+          $ref: "#/components/schemas/list_reponse"
+        status:
+          type: integer
+          description: HTTP code status
+  responses:
+    response:
+      $ref: "#/components/schemas/api_response"
+    list_response:
+      $ref: "#/components/schemas/api_list_reponse"
+    error:
+      $ref: "#/components/schemas/api_error"
+    404_not_found:
+      $ref: "#/components/schemas/api_error"
